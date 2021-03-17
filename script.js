@@ -22,8 +22,8 @@ const ball = document.querySelector('.ball')
 //initial ball position
 let ballXPosition = 0;
 let ballYPosition = 0;
-let ballXVelocity = 1;
-let ballYVelocity = 1;
+let ballXVelocity = 2;
+let ballYVelocity = 2;
 
 // Update the pong world
 function update() {
@@ -33,10 +33,23 @@ function update() {
     // Update ball position
     ballXPosition += ballXVelocity
     ballYPosition += ballYVelocity
+    
+    if (ballYPosition <= 0) {
+        ballYVelocity = - ballYVelocity
+    }
 
-    //If ball goes off screen bring it back
-    ballXPosition = ballXPosition % (GAME_AREA_HEIGHT - BALL_SIZE);
-    ballYPosition = ballYPosition % (GAME_AREA_WIDTH - BALL_SIZE);
+    if (ballXPosition >= GAME_AREA_HEIGHT - BALL_SIZE) {
+    ballXVelocity = + ballXVelocity
+    }
+    
+    if (ballXPosition <= 0) {
+        ballXVelocity = + ballXVelocity
+    }
+
+        //If ball goes off screen bring it back
+    if (ballYPosition >= GAME_AREA_HEIGHT - BALL_SIZE) {
+    ballYVelocity = - ballYVelocity
+    }
 
     //Apply the balls y-position
     ball.style.left = `${ballXPosition}px`;
